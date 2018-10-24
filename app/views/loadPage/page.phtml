@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Инцидент+</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/animate.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery-1.11.2.js"></script>
+    <script src="/js/bootstrap.js"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-main">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand logo" href="/index.html">
+                            <img src="/img/logo.png" width="100%" alt="Logo">
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse navbar-right" id="navbar-main">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="/index.html" class="go_search">Поиск инструкции</a></li>
+                            <li><a href="#" class="smena animated">Пересменка</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid main-container">
+        <div class="row incident-color-block" style="padding-top: 20px">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 search-result search-result2">
+                        <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-1 col-md-1 col-sm-1 img-search-res text-center" style="padding: 0">
+                            <img src="/img/timer-icon.svg" width="50px" alt="Fire">
+                        </div>
+                        <div class="col-lg-6 col-md-5 col-sm-5 text-search-res">
+                            Действия при возникновении аварии с выбросом сильнодействующих ядовитых веществ
+                        </div>
+                        <div class="col-lg-1 col-md-2 col-sm-2 text-right go-incident">
+                            <a href="/index.phtml" ><!--class="disabled"-->Свернуть</a>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <div class="row date-time-go text-right">
+                                <div>Время выполнения:</div>
+                            </div>
+                            <div class="row date-time-go-bold text-right">
+                                <div><span class="percent pr-green"><?php  echo $tim,' : 00 мин.';//отображение необходимого времени
+                                ?></div></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="save"> <!--Навешивание визуалки на массив-->
+                <!--<div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10 content-incident" data-key="red">
+                -->
+                <?php
+
+
+                if($flag) echo 'По запросу ничего не найдено',$flag, "\n";
+                else echo 'Запрос вернул массив',$flag, "\n";
+
+                foreach($ech as $f){
+                    echo 'Id: ',$f->id, "\n";
+                    echo 'Id_in_wiki: ',$f->idInWiki, "\n";
+
+                    //if ($e->id != '') $objectMyModel-> //запуск обработки времени
+                    //$time=$_SERVER["REQUEST_TIME"];
+                    //tim
+                }
+
+                foreach($ech_1 as $f){
+                    echo 'Id: ',$f->id, "\n";
+                    echo 'Id_in_wiki: ',$f->idInWiki, "\n";
+                    //if ($e->id != '') $objectMyModel-> //запуск обработки времени
+                    //$time=$_SERVER["REQUEST_TIME"];
+                    //tim
+                }
+                echo 'Разница:',$time_diff;
+
+                foreach($steps as $s){
+                    echo 'idIncidient ',$s->idIncidient, "\n";
+                    echo 'step: ',$s->step, "\n";
+                    echo 'isOverdue: ',$s->isOverdue, "\n";
+                    //if ($e->id != '') $objectMyModel-> //запуск обработки времени
+                    //$time=$_SERVER["REQUEST_TIME"];
+                    //tim
+                }
+                echo 'Текущий Шаг: ',$cur_steps, " ";
+                ?>
+                <!--</div>-->
+                <script>
+                    var i = <?php echo $cur_steps; ?>;
+                </script>
+
+                <?php
+
+                $time_diff;
+                $lengthM = count($m);
+                for($i=0;$i < $lengthM-1;$i++){
+                    if($steps[$i]->isOverdue==0)
+                        echo "<div class=\"col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10 content-incident\">";
+                    else echo "<div class=\"col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10 content-incident\" data-key=\"red\"\">";
+                    ?>
+                    <!--<div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10 content-incident green-incident">-->
+                        <div class="col-lg-9 col-md-8 col-sm-8 content-items">
+                            <div class="col-lg-12 col-md-12 col-sm-12 animated">
+                                <div class="ul-content-incident"><?php echo $m[$i+1] ?></div> <!--  блок с основным текстом-->
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-4 col-sm-4 timer-block">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="timer text-center">
+                                    <?php
+                                    $fl=0;
+                                    $matches[0][$i]=preg_replace("/[=]{2}/",'', $matches[0][$i]);
+                                    if (preg_match("|^[\d]{1,}\-[\d]{1,}\ мин$|", $matches[0][$i])) { //если заголовок со временем
+                                        preg_match_all("/\d{1,}/", $matches[0][$i], $times);
+                                        ?>
+                                        <span class="min min-sec-green"><?php
+                                            $tim = $times[0][1] - $times[0][0];
+                                            $tim_t=$tim*60;
+                                            if (($time_diff - $tim_t > 0) or ($time_diff - $tim_t > $tim_t)) {
+                                                $time_diff -= $tim_t;
+                                                echo 00;
+                                                $fl=1;
+                                            }
+                                            else {
+                                                if(($time_diff<$tim_t))//вычитание
+                                                {
+                                                    $tim=floor(($tim_t-$time_diff)/60);
+                                                }
+                                                echo $tim;
+                                                $fl=0;
+                                            }
+                                            ?>
+                                        </span>:
+                                        <span class="sec min-sec-green"><?php if($fl) echo '00'; else {echo $tim=($tim_t-$time_diff)%60;$time_diff=0;}?></span>
+                                        <?php
+                                    }
+                                    else{
+                                        echo '<span class="min min-sec-green">-</span>:<span class="sec min-sec-green">-</span>';
+                                    }?>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <?php
+                                /*if ($i+1!=$cur_steps) echo '
+                                <div class="disabled">
+                                    <div class="go-incident text-center">
+                                        <a>Завершить</a>
+                                    </div>
+                                </div>';
+                                else */echo '
+                                <div class="button-active">
+                                    <div class="go-incident text-center">
+                                        <a>Завершить</a>
+                                    </div>
+                                </div>';
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid foot">
+        <div class="row">
+            <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-3 col-md-3 col-sm-3">
+                <img src="/img/logo.png" alt="Logo">
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-8 text-right foot-text">
+                Программа для автоматизации действий оператора<br>
+                по поиску и выполнению инструкций
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-window text-center animated bounceInDown" id="modal-win">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="inputLogin" class="control-label">Введите логин</label>
+                <div class="col-lg-offset-2 col-lg-8" style="margin-top: 20px">
+                    <input type="text" class="form-control login-form" id="inputLogin" placeholder="Введите логин">
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <button type="submit" class="btn btn-primary smena-button">Смена</button>
+                    <button type="button" class="btn btn-primary smena-button smena-button-otmena" id="cancel">Отмена</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="overlay" id="overl"></div>
+
+    <div class="modal-window text-center animated bounceInDown" id="modal-win2">
+        <div>
+            Выполнение завершено!
+        </div>
+        <div class="form-group" style="margin-top: 20px;">
+            <div>
+                <a href="/index.phtml" type="submit" class="btn btn-primary smena-button">Вернуться к поиску</a>
+                <a type="button" class="btn btn-primary smena-button smena-button-otmena" id="cancel2">Отмена</a>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" id="overl2"></div>
+    <a href="/index.phtml" class="back-a">
+        <div class="back">
+            <img src="/img/back-left.svg" alt="back">
+        </div>
+    </a>
+    <script src="js/animate.js" type="text/javascript"></script>
+    <script src="/js/search.js" type="text/javascript"></script>
+    <!-- На странице где будет отображен выполненный инцидент необходимо отключить файл scripts.js -->
+    <script src="/js/scripts.js"></script>
+    <script src="/js/modalWindow.js" type="text/javascript"></script>
+</body>
+</html>

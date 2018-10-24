@@ -1,0 +1,14 @@
+<h2>Выгрузка страницы</h2>
+
+<?php echo $this->tag->form("loadPage/page"); ?>
+
+<p>
+    <label for="url">URL</label>
+    <?php echo $this->tag->textField("url"); ?>
+</p>
+
+<p>
+    <?php echo $this->tag->submitButton("Выгрузка"); ?>
+</p>
+
+</form>

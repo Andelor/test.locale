@@ -1,0 +1,577 @@
+@font-face {
+    font-family: AvertaCyrillicBlack; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicBlack.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicBlackItalic; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicBlackItalic.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicBold; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicBold.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicBoldItalic; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicBoldItalic.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicExtraBold; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicExtraBold.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicExtraBoldItalic; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicExtraBoldItalic.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicExtraThin; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicExtraThin.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicExtraThinItalic; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicExtraThinItalic.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicLight; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicLight.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicLightItalic; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicLightItalic.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicRegular; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicRegular.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicRegularItalic; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicRegularItalic.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicSemiBold; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicSemiBold.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicSemiBoldItalic; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicSemiBoldItalic.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicThin; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicThin.otf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: AvertaCyrillicThinItalic; /* Имя шрифта */
+    src: url(../fonts/AvertaCyrillicThinItalic.otf); /* Путь к файлу со шрифтом */
+}
+body{
+    background: url(../img/back.jpg);
+    background-size: 100%;
+}
+
+/*div[class="row"] {*/
+    /*border: 1px dotted rgba(0, 0, 0, 0.5);*/
+/*}*/
+
+/*div[class^="col-"] {*/
+    /*background-color: rgba(255, 0, 0, 0.2);*/
+/*}*/
+
+a:hover{
+    cursor: pointer;
+}
+.disabled{
+    pointer-events: none;
+}
+.navbar-default{
+    border-color: inherit;
+    background-color: inherit;
+    border: 0;
+    margin-top: 20px;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > a,
+.navbar-default .navbar-nav > li > a {
+    font-family: AvertaCyrillicLight;
+    font-size: 18px;
+    color: #1a2534;
+    padding: 15px 30px;
+    background-color: inherit;
+    font-weight: bold;
+    transition: all 0.5s;
+}
+.navbar-default .navbar-nav > li > a.smena{
+    color: #0077ff;
+    border: 1px solid #0077ff;
+    border-radius: 8px;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > .active > a:hover{
+    background: inherit;
+    color: #0077ff;
+}
+#navbar-main{
+    padding-top: 8px;
+}
+.main-container{
+    margin-top: -20px;
+}
+.title-search{
+    font-size: 30px;
+    color: #1a2534;
+    font-family: AvertaCyrillicBold;
+    /*padding-top: 140px; для варианата с фоткой пожарника*/
+    padding-top: 20px;
+}
+.desc-search{
+    font-family: AvertaCyrillicRegular;
+    font-size: 18px;
+    color: #8d8fa7;
+    padding-top: 15px;
+}
+.form-control{
+    height: 64px;
+    padding: 0 20px;
+    outline: none;
+    color: gray;
+    border:0;
+    box-shadow: none;
+    font-size: 18px;
+    border-radius: 8px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.form-control2{
+    height: 64px;
+    width: 100%;
+    min-width: 100px;
+    text-align: center;
+    color: #fff;
+    font-family: AvertaCyrillicLight;
+    letter-spacing: 1px;
+    border:0;
+    background: #1a2534;
+    font-size: 20px;
+    border-radius: 8px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-control2:hover{
+    background: #0077ff;
+}
+.form-control:focus{
+    box-shadow: none;
+}
+.block{  /*добавил*/
+    max-height: 150px;
+    overflow-y: auto;
+}
+.form-block{
+    position: relative;
+    padding-top: 40px;
+}
+.type-incident{
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #f7f7f7;
+    box-shadow: 4px 4px 20px #eaeaea;
+    border-top: 6px solid #0077ff;
+    padding: 12px 0;
+}
+.main-title-incident{
+    padding: 0 17px;
+    color: #0077ff;
+    font-size: 17px;
+    font-family: AvertaCyrillicSemiBold;
+}
+.list-group{
+    border-radius: 0;
+    margin: 0;
+    margin-top: 5px;
+}
+a.list-group-item{
+    font-family: AvertaCyrillicRegular;
+    color: #8d8fa7;
+    border: 0;
+    font-size: 16px;
+}
+.list-group-desc{
+    position: relative;
+    z-index: 100;
+}
+.desc-incident{
+    position: absolute;
+    background: url(../img/fon.png);
+    color: #fff;
+    border-radius: 8px;
+    padding: 8px 15px 10px;
+    top:-2000px;
+    left:-20px;
+    z-index: 1000;
+    width: 100%;
+    opacity: 0;
+}
+.list-group-desc:hover .desc-incident{
+    top:-182px;
+    opacity: 1;
+    transition:0.2s all;
+}
+.desc-incident::after {
+    content: '';
+    position: absolute; /* Абсолютное позиционирование */
+    left: 40px; bottom: -20px; /* Положение треугольника */
+    border: 10px solid transparent; /* Прозрачные границы */
+    border-top: 10px solid #445361; /* Добавляем треугольник */
+}
+.list-group-item:last-child,
+.list-group-item:first-child{
+    border-radius: 0;
+}
+.percent{
+    font-family: AvertaCyrillicSemiBold;
+    margin-right: 10px;
+}
+.pr-green{
+    color: #36b47b;
+}
+.pr-red{
+    color: #c71920;
+}
+.pr-yellow, .title-yellow{
+    color: #ffcd00;
+}
+.title-green{
+    color: #36b47b;
+}
+.inc-yellow{
+    border-top: 6px solid #ffcd00;
+}
+.inc-green{
+    border-top: 6px solid #36b47b;
+}
+.foot{
+    margin-top: 50px;
+    padding: 25px;
+}
+.foot-text{
+    font-family: AvertaCyrillicRegular;
+    font-size: 18px;
+    color: #8d8fa7;
+}
+#result {
+    position: absolute;
+    top:105px;
+    left: 0;
+    width: 100%;
+    cursor: pointer;
+    overflow-y: auto;
+    max-height: 400px;
+    box-sizing: border-box;
+    z-index: 1001;
+    box-shadow: 0 2px 12px rgba(0,0,0,.09);
+    background: #fff;
+    border-radius: 8px;
+}
+.link-class:first-child {
+    margin-top: 10px;
+}
+.link-class:last-child {
+    margin-bottom: 10px;
+}
+.link-class{
+    padding: 12px 15px;
+    border: 0;
+    transition: all 0.5s;
+}
+.link-class:hover{
+    background: #f6f7fc;
+}
+.link-class:hover .text-muted{
+    color: #0077ff;
+}
+.text-muted {
+    padding-left: 10px;
+    font-family: AvertaCyrillicLight;
+    font-size: 16px;
+}
+.date-time-go > div{
+    color: #b0b7c0;
+    font-family: AvertaCyrillicLight;
+    font-size: 14px;
+}
+.date-time-go-bold{
+    font-family: AvertaCyrillicRegular;
+    padding-top: 5px;
+    color:#fff;
+    font-size: 15px;
+}
+.title-tooltip-inc > div{
+    color: #fff;
+    font-family: AvertaCyrillicLight;
+    font-size: 14px;
+    padding-bottom: 5px;
+}
+.indication-block{
+    padding: 0 15px;
+    margin-top: 10px;
+}
+.indication{
+    color: #36b47b;
+    font-family: AvertaCyrillicRegular;
+    font-size: 14px;
+    margin-top: -10px;
+}
+.progress-bar-success{
+    background-color: #36b47b;
+}
+.progress-bar-green{
+    background: #36b47b;
+}
+.back{
+    position: fixed;
+    z-index: 9999999;
+    width: 100px;
+    height: 100%;
+    background: inherit;
+    top: 0;
+    left: 0;
+    transition: 0.6s all;
+}
+.back > img{
+    height: 30px;
+    margin-top: 300px;
+    margin-left: 35px;
+}
+.back-a:hover .back{
+    background: url(../img/fon2.png);
+}
+.search-result{
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #f7f7f7;
+    padding: 18px 10px;
+    margin-top: 5px;
+}
+.search-result2{
+    border-radius: 0;
+}
+.search-result:hover{
+    box-shadow: 4px 4px 20px #eaeaea;
+}
+.search-result2:hover{
+    box-shadow: none;
+}
+.search-result:first-child{
+    margin-top: 10px;
+}
+.img-search-res > img{
+    border-radius: 8px;
+}
+.text-search-res{
+    font-family: AvertaCyrillicRegular;
+    font-size: 16px;
+    color: #8d8fa7;
+}
+.go-incident{
+    padding: 12px 0 2px;
+}
+.go-incident > a{
+    font-family: AvertaCyrillicBold;
+    color: #36b47b;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #36b47b;
+    padding: 7px 12px;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+}
+.go-incident > a:hover{
+    text-decoration: none;
+    background: #36b47b;
+    color: #fff;
+}
+.go-inc-pause > a{
+    color: #ffcd00;
+    border: 1px solid #ffcd00;
+}
+.go-inc-pause > a:hover{
+    background: #ffcd00;
+}
+.pagination{
+    font-family: AvertaCyrillicRegular;
+    color: #0077ff;
+    font-size: 16px;
+}
+.pagination > li:first-child > a{
+    margin-left: 0;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+.pagination > li:last-child > a{
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.pagination > li > a{
+    border: 1px solid #f7f7f7;
+}
+.pagination > li > a:hover{
+    background: #fff;
+    border: 1px solid #0077ff;
+}
+.pagination > .active > a{
+    background: #0077ff;
+    color: #fff;
+    border: 1px solid #0077ff;
+}
+.inc-search{
+    margin-top: 20px
+}
+.content-incident{
+    padding: 0;
+    margin-top: 15px;
+}
+.content-incident > div > div{
+    padding: 30px 35px 30px 30px;
+    border: 1px solid #f7f7f7;
+    border-radius: 8px;
+    background: #fff;
+    font-family: AvertaCyrillicLight;
+    font-size: 16px;
+    color: #6f7183;
+}
+.ul-content-incident > li{
+    padding-top: 10px;
+}
+.timer{
+    font-family: AvertaCyrillicExtraThin;
+    font-size: 60px;
+}
+.indication-timer{
+    margin-top: 20px;
+}
+.modal-window{
+    width: 40%;
+    top: 200px;
+    left: 30%;
+    background: #fff;
+    border: 1px solid red;
+    position: absolute;
+    z-index: 99999;
+    border: 1px solid #f7f7f7;
+    border-radius: 8px;
+    padding: 25px;
+    font-family: AvertaCyrillicLight;
+    font-size: 20px;
+    display: none;
+}
+.go-green{
+    font-family: AvertaCyrillicBold;
+    color: #36b47b;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #36b47b;
+    padding: 7px 12px;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+}
+.go-green:hover{
+    background: #36b47b;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+.y-n-block{
+    margin-top: 20px;
+}
+.go-red{
+    color: #FB2527;
+    border: 1px solid #FB2527;
+}
+.go-red:hover{
+    background: #FB2527;
+}
+.overlay{
+    position: fixed;
+    z-index: 99998;
+    width: 100%;
+    height: 100%;
+    background: black;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    display: none;
+}
+.display-none{
+    display: none;
+}
+.red-background{
+    background: red;
+}
+.zero{
+    opacity:0;
+}
+.login-form{
+    border: 1px solid #8d8fa7;
+    border-radius: 4px;
+    height: 54px;
+}
+.date-time-input{
+    font-size: 18px;
+}
+.smena-button{
+    background: #0077ff;
+    border: 1px solid #0077ff;
+    color: #fff;
+    font-family: AvertaCyrillicLight;
+    font-size: 18px;
+    transition: all 0.5s;
+}
+.smena-button:hover{
+    color: #0077ff;
+    border: 1px solid #0077ff;
+    background: #fff;
+}
+.smena-button-otmena{
+    background: #1a2534;
+    color: #fff;
+    border: 1px solid #1a2534;
+}
+.smena-button-otmena:hover{
+    background: #fff;
+    color: #1a2534;
+    border: 1px solid #1a2534;
+}
+.green-incident > .content-items > div{
+    border: 4px solid #36b47b;
+    background : #fff;
+}
+.min-sec-green{
+    color: #36b47b;
+}
+
+/* MD CLASSES*/
+@media (min-width: 992px) and (max-width: 1200px){
+    .title-search{
+        padding-top: 80px;
+    }
+    .row-type-incident{
+        margin-top: 20px;
+    }
+}
+
+/* SM CLASSES*/
+@media (min-width: 768px) and (max-width: 992px){
+    .title-search{
+        padding-top: 40px;
+    }
+    .row-type-incident{
+        margin-top: 20px;
+    }
+    .firefighter{
+        padding-top: 40px;
+    }
+    .inc-search{
+        margin-top: 0;
+    }
+    .last-type{
+        margin-top: 30px;
+    }
+}
