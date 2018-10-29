@@ -109,9 +109,12 @@
                 $time_diff;
                 $lengthM = count($m);
                 for($i=0;$i < $lengthM-1;$i++){
-                    if($steps[$i]->isOverdue==0)
-                        echo "<div class=\"col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10 content-incident\">";
-                    else echo "<div class=\"col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10 content-incident\" data-key=\"red\"\">";
+                    if(($steps[$i]->isOverdue==0 )&&( $steps[$i]->ending!=NULL)&&($i<$cur_steps))
+                        echo "<div class=\"col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10 content-incident\" data-key=\"green\"\">"; //Если есть время, не просрочено и меньше чем шаг
+                    else
+                        if(($steps[$i]->isOverdue==1 )&&( $steps[$i]->ending!=NULL)&&($i<$cur_steps))
+                            echo "<div class=\"col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10 content-incident\" data-key=\"red\"\">"; //Если есть время, просрочено и меньше чем шаг
+                        else  echo "<div class=\"col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10 content-incident\">";
                     ?>
                     <!--<div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10 content-incident green-incident">-->
                         <div class="col-lg-9 col-md-8 col-sm-8 content-items">
@@ -147,7 +150,16 @@
                                             }
                                             ?>
                                         </span>:
-                                        <span class="sec min-sec-green"><?php if($fl) echo '00'; else {echo $tim=($tim_t-$time_diff)%60;$time_diff=0;}?></span>
+                                        <span class="sec min-sec-green">
+                                            <?php if($fl) echo '00'; else {
+                                                $time=($tim_t-$time_diff)%60;
+                                                if($time<10)
+                                                    echo '0',$time;
+                                                else
+                                                    echo $time;
+                                                $time_diff=0;
+                                            }?>
+                                        </span>
                                         <?php
                                     }
                                     else{
@@ -165,7 +177,7 @@
                                     </div>
                                 </div>';
                                 else */echo '
-                                <div class="button-active">
+                                <div class="button-action">
                                     <div class="go-incident text-center">
                                         <a>Завершить</a>
                                     </div>
@@ -230,6 +242,13 @@
     </a>
     <script src="js/animate.js" type="text/javascript"></script>
     <script src="/js/search.js" type="text/javascript"></script>
+    <?php
+    if(isset($POST['index'])){
+        //обработка
+        exit($POST['index']);
+    }
+
+    ?>
     <!-- На странице где будет отображен выполненный инцидент необходимо отключить файл scripts.js -->
     <script src="/js/scripts.js"></script>
     <script src="/js/modalWindow.js" type="text/javascript"></script>

@@ -76,14 +76,25 @@ class LoadPageController extends Controller
             $difference = (int)$currentTime - (int)$date_1;
 
             $this->view->time_diff=(int)$difference;//разница во времени в микросекундах
+
+            $steps=StepInIncidient::find(
+                [
+                    'idIncidient = :ind:',       //запрос
+                    'bind'=>[
+                        'ind' => $result[0]->id,//$pageid,
+                    ],
+                ]
+            );
         }
         else { //сохраняем новый инцедент если нет такого незавершенного
-            $objectMyModel->saveIncidientStart($pageid,1,$titles,$tim);
-            $this->view->ech=$result;
+            $objectMyModel->saveIncidientStart($pageid,1,$titles,$tim); //создание новой записи в инцедентах
+            //$this->view->ech=$result;
 
 
             $result_1=$objectMyModel->checkOnFreedom($pageid);
-            $this->view->ech_1=$result_1;
+            $this->view->ech=$result;
+
+            //$this->view->ech_1=$result_1;
 
             $lengthM = count($m);
             for($i=0;$i < $lengthM-1;$i++){//если новый инцедент, то создаем необходимое кол-во шагов для этого действия
@@ -94,25 +105,26 @@ class LoadPageController extends Controller
                     $stepin->save();
                 //}
             }
+            $steps=StepInIncidient::find(
+                [
+                    'idIncidient = :ind:',       //запрос
+                    'bind'=>[
+                        'ind' => $result_1[0]->id,//$pageid,
+                    ],
+                ]
+            );
         }//добавить user id
 
-        $steps=StepInIncidient::find(
-          [
-              'idIncidient = :ind:',       //запрос
-              'bind'=>[
-                  'ind' => $result[0]->id,//$pageid,
-              ],
-          ]
-        );
+
         $this->view->steps=$steps;
 
-        $cur_steps=0;
+        $cur_steps=0;//изменить на реальный шаг в соответствии с базой
         $i=0;
         while($steps[$i]->ending!=NULL){
             $i++;
         }
-        //$cur_steps=$i+1;//это правильный вариант
-        $cur_steps=$i+3;//тестовый вариант
+        $cur_steps=$i+1;//это правильный вариант
+        //$cur_steps=$i+3;//тестовый вариант
         $this->view->cur_steps=$cur_steps;
         curl_close($curl);
     }

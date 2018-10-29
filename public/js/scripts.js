@@ -182,6 +182,14 @@ $(document).ready(function () {
     } // функция для расчета остаточного % индикатора
 
     function endTimer(){
+        //тетсим аякс
+        $.ajax({
+            type: "POST",
+            data: {"index": i},
+            success: function(data){
+                console.log(data)
+            }
+        });
 
         i = i + 1;
         //console.log('i = '+i);
@@ -255,7 +263,6 @@ $(document).ready(function () {
     function keyActionFunc(){
 
         if(mainBlock.attr('data-key') == 'green') {
-
             pickOutGreen();
             endTimer();
             keyAction = false;
