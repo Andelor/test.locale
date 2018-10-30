@@ -36,6 +36,7 @@
         </div>
     </nav>
 
+    <div id="test"></div>
     <div class="container-fluid main-container">
         <div class="row incident-color-block" style="padding-top: 20px">
             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -180,7 +181,7 @@
                                 else */echo '
                                 <div class="button-action">
                                     <div class="go-incident text-center">
-                                        <a>Завершить</a>
+                                        <a id="',$steps[$i]->step,'" >Завершить</a>
                                     </div>
                                 </div>';
                                 ?>

@@ -1,7 +1,8 @@
 <?php
 
 use Phalcon\Mvc\Controller;
-use StepInIncidient;
+//use StepInIncidient;
+use Phalcon\Mvc\View;
 
 class LoadPageController extends Controller
 {
@@ -11,6 +12,16 @@ class LoadPageController extends Controller
     {
 
     }
+
+    public function baseAction()
+    {
+        if(!$this->request->isPost()) return;
+       // $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
+        $index = $this->request->getPost('index','int');
+
+        echo var_dump($_POST);
+    }
+
 
     public  function pageAction()
     {
