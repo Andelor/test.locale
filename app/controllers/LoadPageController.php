@@ -18,8 +18,34 @@ class LoadPageController extends Controller
         if(!$this->request->isPost()) return;
        // $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
         $index = $this->request->getPost('index','int');
+        $index--;
+        $id = $this->request->getPost('page','int');
+
+        $objectMyModel = new StepInIncidient;
+        $step = StepInIncidient::find(
+            ['idIncidient = :ind: AND step = :st:',       //запрос
+            'bind'=>[
+                        'ind' => $id,//$pageid,
+                        'st' => $index,
+                    ],
+            ]
+        );
+        //var_dump($step[0]);
+
+        if ($step[0]->ending==NULL) {
+            //$step[0]->ending = date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
+            $step->update(
+                [
+                    'ending' => date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']),
+                ]
+            );
+        }
+        //var_dump($step[0]);
+        //var_dump($objectMyModel->getChangedFields());
 
         echo var_dump($_POST);
+        echo var_dump($index);
+        echo var_dump($id);
     }
 
 
@@ -128,6 +154,8 @@ class LoadPageController extends Controller
 
 
         $this->view->steps=$steps;
+
+        $this->view->id_in=$steps[0]->idIncidient;
 
         $cur_steps=0;//изменить на реальный шаг в соответствии с базой
         $i=0;

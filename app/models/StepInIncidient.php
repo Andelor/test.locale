@@ -18,10 +18,10 @@ class StepInIncidient extends Model
 
     function searchNeedString($idIncidient, $step){
         $query = $this->modelsManager->createQuery(
-            "SELECT * FROM step_in_incidient WHERE idIncidient=$idIncidient AND  step=$step");//AND status=0;
+            "SELECT * FROM step_In_Incidient WHERE idIncidient=$idIncidient AND  step=$step");//AND status=0;
 
 
-        return $free = $query->execute();
+        return $free=$query->execute();
     }
 
     function currentStep($idIncidient){
