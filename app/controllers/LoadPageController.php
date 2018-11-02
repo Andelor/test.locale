@@ -48,6 +48,41 @@ class LoadPageController extends Controller
         echo var_dump($id);
     }
 
+    public function typAction()
+    {
+        if(!$this->request->isPost()) return;
+        // $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
+        $id = $this->request->getPost('ind','int');
+
+        $objectMyModel = new Incidient();
+        $incidient = Incidient::find(
+            ['id = :ind: AND status = :st:',       //запрос
+                'bind'=>[
+                    'ind' => $id,//$pageid,
+                    'st' => 0,
+                ],
+            ]
+        );
+        var_dump($incidient[0]);
+
+        /*$incidient=$incidient->searchForChange($id);
+        var_dump($incidient[0]);
+        var_dump($incidient[0]->status);*/
+
+        if ($incidient->status==0) {
+            //$step[0]->ending = date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
+            $incidient->update(
+                [
+                    'status' => 1,
+                ]
+            );
+        }
+        //var_dump($step[0]);
+        //var_dump($objectMyModel->getChangedFields());
+
+        echo var_dump($_POST);
+        echo var_dump($id);
+    }
 
     public  function pageAction()
     {

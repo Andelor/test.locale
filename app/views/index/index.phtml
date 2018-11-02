@@ -260,7 +260,81 @@
                 <div class="main-title-incident title-yellow">
                     Долгосрочные
                 </div>
-                <div class="list-group">
+                <?php
+
+                $incidient = Incidient::find(
+                    [
+                        'status = 1',       //запрос
+                        'order' => 'id',    //сортировка
+                        'offset'=> 0,       //смещение
+                        'limit' => 5,       //лимит записей
+                    ]
+                );
+                echo "<div class=\"list-group\">";
+                foreach ($incidient as $inc){
+                //echo "<div>",$inc->id, "\n";
+                //echo $inc->idInWiki,"</div><div>";
+                $step=StepInIncidient::find(
+                    [
+                        'idIncidient = :ind:',       //запрос
+                        'bind'=>[
+                            'ind' => $inc->id,
+                        ],
+                        'order' => 'step',    //сортировка
+                    ]
+                );
+
+                $summ=0;
+                $int=0;
+                foreach ($step as $s){
+                    $summ++;
+                    if($s->ending == NULL)
+                        $int=$int+1;
+                    //echo $s->id, "\n";
+                    //echo $s->step, "\n", "</div>";
+                }
+                $percent=0.0;
+                $percent=(($summ-$int)/$summ)*100.0;
+                //$this->view->percent=$percent;
+
+                //echo sprintf("%.24s...",$inc->title);//краткая форма
+                //echo sprintf("%s",$inc->title);//
+                //echo sprintf("%d",$inc->time);//
+                //echo sprintf("%01.2f",$percent);//вывод числа в формате 2ух чисел после запятой
+
+                echo "<a href=\"/incidient/",$inc->idInWiki,"\"","class=\"list-group-item list-group-desc\">";
+                if($percent>70.0)
+                    echo "<span class=\"percent pr-yellow\">",sprintf("%01.0f",$percent),"%";
+                else echo "<span class=\"percent pr-green\">",sprintf("%01.0f",$percent),"%";
+
+                ?><!--1.09.2018--></span><?php echo sprintf("%.24s...",$inc->title);?>
+                <div class="desc-incident">
+                    <div class="row title-tooltip-inc">
+                        <div class="col-lg-12">
+                            <?php echo sprintf("%s",$inc->title);?>
+                        </div>
+                    </div>
+                    <div class="row date-time-go">
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-left">Время начала</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-left">Дата начала</div>
+                    </div>
+                    <div class="row date-time-go-bold">
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo sprintf("%s",$inc->dateStart);//переделать формат для часов?></div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo sprintf("%s",$inc->dateStart);//переделать формат для даты?></div>
+                    </div>
+                    <div class="row indication-block">
+                        <div class="progress" style="height: 6px">
+                            <div class="progress-bar progress-bar-green" role="progressbar" style="width: <?php echo $percent,"%"?>" aria-valuenow="<?php echo $percent,"%"?>" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="indication text-center">Выполнено <?php echo sprintf("%01.2f",$percent),"%"?></div>
+                    </div>
+                </div>
+                </a>
+                <?php
+                }
+                ?>
+            </div>
+                <!--<div class="list-group">
                     <a href="implementation2.html" class="list-group-item list-group-desc">
                         <span class="percent pr-yellow">44% 1.09.2018</span>Действия при...
                         <div class="desc-incident">
@@ -357,7 +431,7 @@
                             </div>
                         </div>
                     </a>
-                </div>
+                </div>-->
             </div>
         </div>
         <div class="col-lg-offset-0 col-md-offset-0 col-sm-offset-1 col-lg-3 col-md-3 col-sm-5 last-type">

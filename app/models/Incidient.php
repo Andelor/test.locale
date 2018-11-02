@@ -25,6 +25,13 @@ class Incidient extends Model
         return $free = $query->execute();
     }// проверка на наличие незакрытого события такого типа
 
+    public function searchForChange($id){
+        $query = $this->modelsManager->createQuery(
+            "SELECT * FROM Incidient WHERE id=$id");
+
+        return $step = $query->execute();
+    }//function searchRealTime
+
     public function searchRealTime($strQuery){
         $query = $this->modelsManager->createQuery(
             "SELECT ");
@@ -43,7 +50,7 @@ class Incidient extends Model
     public function searchLong($strQuery){
         $dateStart = date('Y-m-d H:i:s',$_SERVER['REQUEST_TIME']);
         $query = $this->modelsManager->createQuery(
-            "SELECT ");
+            "SELECT id = ");
 
         return $long = $query->execute();
     }//поиск долгосрочных заявок за последние сутки
