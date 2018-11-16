@@ -36,7 +36,7 @@ class LoadPageController extends Controller
             //$step[0]->ending = date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
             $step->update(
                 [
-                    'ending' => date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']),
+                    'ending' => date('Y-m-d H:i:s'),
                 ]
             );
         }
@@ -104,6 +104,7 @@ class LoadPageController extends Controller
             $incidient->update(
                 [
                     'status' => 2,
+                    'dateEnd' => date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']),
                 ]
             );
         }
@@ -117,6 +118,17 @@ class LoadPageController extends Controller
     public  function pageAction()
     {
         $pageid = $this->dispatcher->getParam("pageid");
+
+
+        $incidient = Incidient::find(
+            ['id = :ind:',       //запрос
+                'bind'=>[
+                    'ind' => $pageid,
+                ],
+            ]
+        );
+
+        $pageid=$incidient[0]->idInWiki;
 
         $string = 'http://site.ru/w/api.php?action=query&prop=revisions&rvprop=content&format=json&pageids=';
 
@@ -158,21 +170,25 @@ class LoadPageController extends Controller
 
 
         $objectMyModel = new Incidient();
-        $result=$objectMyModel->checkOnFreedom($pageid);
+        //$result=$objectMyModel->checkOnFreedom($incidient[0]->id);
 
+        if ($incidient[0]->title=='.') {
+           $zerro=0;
+        }
+        else $zerro=1;
 
-        $zerro=0;
+        /*$zerro=0;
         foreach($result as $e){
             if (($e->id!=0) or ($e->id!='')) $zerro=1;
-        }
+        }*/
         if ($zerro==1) {
-            $this->view->ech=$result;
+            $this->view->ech=$incidient;
             //$currentTime = date('Y-m-d H:i:s',$_SERVER['REQUEST_TIME']);
             $currentTime=$_SERVER['REQUEST_TIME']; //
             time();
             mktime(``);
 
-            $date=date_parse_from_format('Y-m-d H:i:s',$result[0]->dateStart);//массив
+            $date=date_parse_from_format('Y-m-d H:i:s',$incidient[0]->dateStart);//массив
             $date_1=date('U',mktime($date["hour"],$date["minute"],$date["second"],$date["month"],$date["day"],$date["year"]));//время в микро секундах
 
             $difference = (int)$currentTime - (int)$date_1;
@@ -183,18 +199,23 @@ class LoadPageController extends Controller
                 [
                     'idIncidient = :ind:',       //запрос
                     'bind'=>[
-                        'ind' => $result[0]->id,//$pageid,
+                        'ind' => $incidient[0]->id,//$pageid,
                     ],
                 ]
             );
         }
         else { //сохраняем новый инцедент если нет такого незавершенного
-            $objectMyModel->saveIncidientStart($pageid,1,$titles,$tim); //создание новой записи в инцедентах
+            //$objectMyModel->saveIncidientStart($pageid,1,$titles,$tim); //создание новой записи в инцедентах
             //$this->view->ech=$result;
+            $incidient[0]->title = $titles;
+            $incidient[0]->userId = 1;
+            $incidient[0]->time=$tim;
+            $incidient[0]->dateStart=date('Y-m-d H:i:s',$_SERVER['REQUEST_TIME']);;
+            $incidient[0]->status=0;
+            $incidient[0]->save();
 
-
-            $result_1=$objectMyModel->checkOnFreedom($pageid);
-            $this->view->ech=$result;
+            //$result_1=$objectMyModel->checkOnFreedom($pageid);
+            $this->view->ech=$incidient;
 
             //$this->view->ech_1=$result_1;
 
@@ -202,7 +223,7 @@ class LoadPageController extends Controller
             for($i=0;$i < $lengthM-1;$i++){//если новый инцедент, то создаем необходимое кол-во шагов для этого действия
                 //foreach($result_1[0] as $f){//хоть и резуьтат единственный, но запрос возвращает таблицу
                     $stepin= new StepInIncidient();
-                    $stepin->idIncidient=$result_1[0]->id;
+                    $stepin->idIncidient=$incidient[0]->id;//$result_1[0]->id;
                     $stepin->step=$i;
                     $stepin->save();
                 //}
@@ -211,7 +232,7 @@ class LoadPageController extends Controller
                 [
                     'idIncidient = :ind:',       //запрос
                     'bind'=>[
-                        'ind' => $result_1[0]->id,//$pageid,
+                        'ind' => $incidient[0]->id,//$result_1[0]->id,//$pageid,
                     ],
                 ]
             );
@@ -233,6 +254,31 @@ class LoadPageController extends Controller
         curl_close($curl);
     }
 
+    function newAction(){
+        $id = $this->dispatcher->getParam("ndx");
 
+        $objectMyModel = new Incidient();
+        $objectMyModel->idInWiki=$id;
+        $objectMyModel->userId=1;
+        $objectMyModel->title='.';
+        $objectMyModel->time=0;
+
+
+        if ($objectMyModel->create() === false) {
+            echo "Мы не можем сохранить робота прямо сейчас: \n";
+
+            $messages = $objectMyModel->getMessages();
+
+            foreach ($messages as $message) {
+                echo $message, "\n";
+            }
+        } else {
+            echo 'Отлично, новая запись робот был успешно создан!';
+        }
+        $num=$objectMyModel->id;
+        //pageid
+        header("Location: http://test.locale/incidient/$num");
+        //$this->pageAction();
+    }
 
 }

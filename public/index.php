@@ -81,6 +81,15 @@ $router->add(
         "pageid" => 1
     ]
 );
+
+$router->add(
+    "/new/([0-9]+)",
+    [
+        "controller" => "loadPage",
+        "action"     => "new",
+        "ndx" => 1
+    ]
+);
 /*$router->add(
     "/loadPage/page/([0-9]+)",
     [

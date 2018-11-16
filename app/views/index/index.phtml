@@ -122,12 +122,12 @@
                     //echo sprintf("%d",$inc->time);//
                     //echo sprintf("%01.2f",$percent);//вывод числа в формате 2ух чисел после запятой
 
-                    echo "<a href=\"/incidient/",$inc->idInWiki,"\"","class=\"list-group-item list-group-desc\">";
+                    echo "<a href=\"/incidient/",$inc->id,"\"","class=\"list-group-item list-group-desc\">";
                         if($percent>30.0)
                             echo "<span class=\"percent pr-green\">",sprintf("%01.0f",$percent),"%";
                         else echo "<span class=\"percent pr-red\">",sprintf("%01.0f",$percent),"%";
 
-                            ?><!--1.09.2018--></span><?php echo sprintf("%.24s...",$inc->title);?>
+                            ?><!--1.09.2018--></span><?php echo mb_substr($inc->title,0, 22).' ...'; /*echo sprintf("%.24s...",$inc->title);*/?>
                         <div class="desc-incident">
                             <div class="row title-tooltip-inc">
                                 <div class="col-lg-12">
@@ -267,7 +267,7 @@
                         'status = 1',       //запрос
                         'order' => 'id',    //сортировка
                         'offset'=> 0,       //смещение
-                        'limit' => 5,       //лимит записей
+                        //'limit' => 5,       //лимит записей
                     ]
                 );
                 echo "<div class=\"list-group\">";
@@ -302,7 +302,7 @@
                 //echo sprintf("%d",$inc->time);//
                 //echo sprintf("%01.2f",$percent);//вывод числа в формате 2ух чисел после запятой
 
-                echo "<a href=\"/incidient/",$inc->idInWiki,"\"","class=\"list-group-item list-group-desc\">";
+                echo "<a href=\"/incidient/",$inc->id,"\"","class=\"list-group-item list-group-desc\">";
                 if($percent>70.0)
                     echo "<span class=\"percent pr-yellow\">",sprintf("%01.0f",$percent),"%";
                 else echo "<span class=\"percent pr-green\">",sprintf("%01.0f",$percent),"%";
@@ -437,7 +437,7 @@
         <div class="col-lg-offset-0 col-md-offset-0 col-sm-offset-1 col-lg-3 col-md-3 col-sm-5 last-type">
             <div class="type-incident inc-green">
                 <div class="main-title-incident title-green">
-                    Выполненные
+                    Выполненные//двое суток
                 </div>
                 <div class="list-group">
                     <a href="implementation3.html" class="list-group-item list-group-desc">

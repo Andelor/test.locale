@@ -20,7 +20,7 @@ class Incidient extends Model
 
     public function checkOnFreedom($strQuery){//id
         $query = $this->modelsManager->createQuery(
-            "SELECT * FROM Incidient WHERE idInWiki=$strQuery AND  dateEnd is NULL AND status=0");//AND status=0;
+            "SELECT * FROM Incidient WHERE idInWiki=$strQuery AND  dateEnd is NULL");//AND status=0;
 
         return $free = $query->execute();
     }// проверка на наличие незакрытого события такого типа
