@@ -16,12 +16,12 @@ class LoadPageController extends Controller
     public function baseAction()
     {
         if(!$this->request->isPost()) return;
-       // $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
-        $index = $this->request->getPost('index','int');
+       // $this->view->setRenderLevel(View::LEVEL_NO_RENDER); websockets - двунаправленное соединение
+        $index = $this->request->getPost('index');
         $index--;
-        $id = $this->request->getPost('page','int');
+        $id = $this->request->getPost('page');
 
-        $objectMyModel = new StepInIncidient;
+        //$objectMyModel = new StepInIncidient;
         $step = StepInIncidient::find(
             ['idIncidient = :ind: AND step = :st:',       //запрос
             'bind'=>[
@@ -52,31 +52,28 @@ class LoadPageController extends Controller
     {
         if(!$this->request->isPost()) return;
         // $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
-        $id = $this->request->getPost('ind','int');
+        $id = $this->request->getPost('dni');
 
-        $objectMyModel = new Incidient();
+        //$objectMyModel = new Incidient();
         $incidient = Incidient::find(
-            ['id = :ind: AND status = :st:',       //запрос
+            ['id = :ind:',       //запрос
                 'bind'=>[
-                    'ind' => $id,//$pageid,
-                    'st' => 0,
+                    'ind' => $id,//номер записи,
                 ],
             ]
         );
-        var_dump($incidient[0]);
 
+        var_dump($incidient[0]);
+        //var_dump($incidient[0]->status);
         /*$incidient=$incidient->searchForChange($id);
         var_dump($incidient[0]);
         var_dump($incidient[0]->status);*/
-
-        if ($incidient->status==0) {
-            //$step[0]->ending = date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
-            $incidient->update(
-                [
-                    'status' => 1,
-                ]
-            );
-        }
+        //if($incidient)
+        $incidient->update(
+            [
+                'status' => '1',
+            ]
+        );
         //var_dump($step[0]);
         //var_dump($objectMyModel->getChangedFields());
 
@@ -88,7 +85,28 @@ class LoadPageController extends Controller
     {
         if(!$this->request->isPost()) return;
         // $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
-        $id = $this->request->getPost('i','int');
+        $id = $this->request->getPost('i');
+        $index = $this->request->getPost('tep');
+        $index--;
+
+
+        $step = StepInIncidient::find(
+            ['idIncidient = :ind: AND step = :st:',       //запрос
+                'bind'=>[
+                    'ind' => $id,//$pageid,
+                    'st' => $index,
+                ],
+            ]
+        );
+
+        if ($step[0]->ending==NULL) {
+            //$step[0]->ending = date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
+            $step->update(
+                [
+                    'ending' => date('Y-m-d H:i:s'),
+                ]
+            );
+        }
 
         $objectMyModel = new Incidient();
         $incidient = Incidient::find(
@@ -99,7 +117,7 @@ class LoadPageController extends Controller
             ]
         );
 
-        if ($incidient->status==0) {
+        if (($incidient[0]->status==1)OR($incidient[0]->status==0)) {
             //$step[0]->ending = date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
             $incidient->update(
                 [
@@ -193,6 +211,8 @@ class LoadPageController extends Controller
 
             $difference = (int)$currentTime - (int)$date_1;
 
+            $this->view->time_start_in=(int)$date_1;
+
             $this->view->time_diff=(int)$difference;//разница во времени в микросекундах
 
             $steps=StepInIncidient::find(
@@ -203,6 +223,18 @@ class LoadPageController extends Controller
                     ],
                 ]
             );
+
+            foreach ($steps as $st){//проход по шагам
+                if(($st->isOverdue==1 )&&( $st->ending!=NULL))//если окончен с просрочкой
+                {
+
+                }
+                else
+                    if(($st->isOverdue==0 )&&( $st->ending!=NULL)){ //без просрочки
+
+                    }
+            }
+
         }
         else { //сохраняем новый инцедент если нет такого незавершенного
             //$objectMyModel->saveIncidientStart($pageid,1,$titles,$tim); //создание новой записи в инцедентах
@@ -241,11 +273,11 @@ class LoadPageController extends Controller
 
         $this->view->steps=$steps;
 
-        $this->view->id_in=$steps[0]->idIncidient;
+        $this->view->id_in=$incidient[0]->id;
 
         $cur_steps=0;//изменить на реальный шаг в соответствии с базой
         $i=0;
-        while($steps[$i]->ending!=NULL){
+        while(($steps[$i]->ending!=NULL) and ($i<count($steps)-1)){
             $i++;
         }
         $cur_steps=$i+1;//это правильный вариант

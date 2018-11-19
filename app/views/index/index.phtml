@@ -87,7 +87,10 @@
                         'status = 0',       //запрос
                         'order' => 'id',    //сортировка
                         'offset'=> 0,       //смещение
-                        'limit' => 5,       //лимит записей
+                        //'limit' => 5,       //лимит записей//
+                        //
+                        //   max-height: 200px;
+                        //overflow-y: auto;
                     ]
                 );
                 echo "<div class=\"list-group\">";
@@ -121,6 +124,9 @@
                     //echo sprintf("%s",$inc->title);//
                     //echo sprintf("%d",$inc->time);//
                     //echo sprintf("%01.2f",$percent);//вывод числа в формате 2ух чисел после запятой
+                    $t=preg_split('/ /',$inc->dateStart);
+                    $date_i=$t[0]; //дата
+                    $time_i=$t[1]; //время
 
                     echo "<a href=\"/incidient/",$inc->id,"\"","class=\"list-group-item list-group-desc\">";
                         if($percent>30.0)
@@ -139,8 +145,8 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6 text-left">Дата начала</div>
                             </div>
                             <div class="row date-time-go-bold">
-                                <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo sprintf("%s",$inc->dateStart);//переделать формат для часов?></div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo sprintf("%s",$inc->dateStart);//переделать формат для даты?></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo sprintf("%.5s",$time_i);//переделать формат для часов?></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo $date_i;//переделать формат для даты?></div>
                             </div>
                             <div class="row indication-block">
                                 <div class="progress" style="height: 6px">
@@ -301,6 +307,9 @@
                 //echo sprintf("%s",$inc->title);//
                 //echo sprintf("%d",$inc->time);//
                 //echo sprintf("%01.2f",$percent);//вывод числа в формате 2ух чисел после запятой
+                $t=preg_split('/ /',$inc->dateStart);
+                $date_i=$t[0]; //дата
+                $time_i=$t[1]; //время
 
                 echo "<a href=\"/incidient/",$inc->id,"\"","class=\"list-group-item list-group-desc\">";
                 if($percent>70.0)
@@ -319,8 +328,8 @@
                         <div class="col-lg-6 col-md-6 col-sm-6 text-left">Дата начала</div>
                     </div>
                     <div class="row date-time-go-bold">
-                        <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo sprintf("%s",$inc->dateStart);//переделать формат для часов?></div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo sprintf("%s",$inc->dateStart);//переделать формат для даты?></div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo sprintf("%.5s",$time_i);//переделать формат для часов?></div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo $date_i;//переделать формат для даты?></div>
                     </div>
                     <div class="row indication-block">
                         <div class="progress" style="height: 6px">
@@ -437,6 +446,111 @@
         <div class="col-lg-offset-0 col-md-offset-0 col-sm-offset-1 col-lg-3 col-md-3 col-sm-5 last-type">
             <div class="type-incident inc-green">
                 <div class="main-title-incident title-green">
+                    Выполненные
+                </div>
+                <?php
+                $d=date_create(date('Y-m-d', $_SERVER['REQUEST_TIME']));
+                //echo date_format($d, 'Y-m-d');
+                $d=$d->modify('+1 day');
+                //echo date_format($d, 'Y-m-d');
+                $current_date="".date_format($d, 'Y-m-d');
+                //echo $current_date;
+
+                $d=$d->modify('-3 day');
+                //echo date_format($d, 'Y-m-d');
+                $current_date_2="".date_format($d, 'Y-m-d');
+                //echo $current_date_2;
+
+                $incidient = Incidient::find(
+                    [
+                        'conditions' => 'status = 2 AND dateEnd between :date: AND :dats:',       //запрос
+                        'bind' => [
+                            'date' => $current_date_2,
+                            'dats' => $current_date,
+                        ],
+                        'order' => 'dateEnd',    //сортировка
+                        'offset'=> 0,       //смещение
+                        //'limit' => 5,       //лимит записей
+                    ]
+                );
+                echo "<div class=\"list-group\">";
+                foreach ($incidient as $inc){
+                //echo "<div>",$inc->id, "\n";
+                //echo $inc->idInWiki,"</div><div>";
+                $step=StepInIncidient::find(
+                    [
+                        'idIncidient = :ind:',       //запрос
+                        'bind'=>[
+                            'ind' => $inc->id,
+                        ],
+                        'order' => 'step',    //сортировка
+                    ]
+                );
+
+                $summ=0;
+                $int=0;
+                foreach ($step as $s){
+                    $summ++;
+                    if($s->ending == NULL)
+                        $int=$int+1;
+                    //echo $s->id, "\n";
+                    //echo $s->step, "\n", "</div>";
+                }
+                $percent=0.0;
+                $percent=(($summ-$int)/$summ)*100.0;
+                //$this->view->percent=$percent;
+
+                //echo sprintf("%.24s...",$inc->title);//краткая форма
+                //echo sprintf("%s",$inc->title);//
+                //echo sprintf("%d",$inc->time);//
+                //echo sprintf("%01.2f",$percent);//вывод числа в формате 2ух чисел после запятой
+                $t=preg_split('/ /',$inc->dateStart);
+                $date_i=$t[0]; //дата
+                $time_i=$t[1]; //время
+
+                $t_end=preg_split('/ /',$inc->dateEnd);
+                $date_end_i=$t_end[0]; //дата
+                $time_end_i=$t_end[1]; //время
+
+                $end=preg_split('/-/',$date_end_i);
+                $end_time=strval($end[2]).".".strval($end[1]).".".strval($end[0])."";
+
+                echo "<a href=\"/incidient/",$inc->id,"\"","class=\"list-group-item list-group-desc\">";
+                echo "<span class=\"percent\"><img src=\"/img/ok.svg\" width=\"18px\" alt=\"OK\">";
+
+                echo $end_time;?><!--1.09.2018--></span><?php echo sprintf("%.24s...",$inc->title);?>
+                <div class="desc-incident">
+                    <div class="row title-tooltip-inc">
+                        <div class="col-lg-12">
+                            <?php echo sprintf("%s",$inc->title);?>
+                        </div>
+                    </div>
+                    <div class="row date-time-go">
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-left">Время начала</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-left">Дата начала</div>
+                    </div>
+                    <div class="row date-time-go-bold">
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo sprintf("%.5s",$time_i);//переделать формат для часов?></div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo $t[0];//переделать формат для даты?></div>
+                    </div>
+                    <div class="row indication-block">
+                        <div class="progress" style="height: 6px">
+                            <div class="progress-bar progress-bar-green" role="progressbar" style="width: <?php echo $percent,"%"?>" aria-valuenow="<?php echo $percent,"%"?>" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="indication text-center">Выполнено <?php echo sprintf("%01.2f",$percent),"%"?></div>
+                    </div>
+                </div>
+                </a>
+                <?php
+                }
+                ?>
+            </div>
+        </div>
+<!--
+</div>
+        <div class="col-lg-offset-0 col-md-offset-0 col-sm-offset-1 col-lg-3 col-md-3 col-sm-5 last-type">
+            <div class="type-incident inc-green">
+                <div class="main-title-incident title-green">
                     Выполненные//двое суток
                 </div>
                 <div class="list-group">
@@ -538,9 +652,10 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 </div>
+
 
 <div class="container-fluid foot">
     <div class="row">

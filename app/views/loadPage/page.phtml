@@ -118,7 +118,8 @@
                     else
                         if(($steps[$i]->isOverdue==1 )&&( $steps[$i]->ending!=NULL)&&($i<$cur_steps))
                             echo "<div class=\"col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10 content-incident\" data-key=\"red\"\">"; //Если есть время, просрочено и меньше чем шаг
-                        else  echo "<div class=\"col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10 content-incident\">";
+                        else
+                            echo "<div class=\"col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10 content-incident\">";
                     ?>
                     <!--<div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-10 col-md-10 col-sm-10 content-incident green-incident">-->
                         <div class="col-lg-9 col-md-8 col-sm-8 content-items">
@@ -166,7 +167,7 @@
                                         </span>
                                         <?php
                                     }
-                                    else{
+                                    else{//если долгосрочный
                                         echo '<span class="min min-sec-green">-</span>:<span class="sec min-sec-green">-</span>';
                                     }?>
                                 </div>

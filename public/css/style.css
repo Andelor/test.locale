@@ -169,6 +169,8 @@ a:hover{
     padding-top: 40px;
 }
 .type-incident{
+    /*max-height: 271px; для скрола
+    overflow: auto;*/
     background: #fff;
     border-radius: 8px;
     border: 1px solid #f7f7f7;
