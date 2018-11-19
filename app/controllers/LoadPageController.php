@@ -20,6 +20,7 @@ class LoadPageController extends Controller
         $index = $this->request->getPost('index');
         $index--;
         $id = $this->request->getPost('page');
+        $t = $this->request->getPost('type');
 
         //$objectMyModel = new StepInIncidient;
         $step = StepInIncidient::find(
@@ -37,6 +38,21 @@ class LoadPageController extends Controller
             $step->update(
                 [
                     'ending' => date('Y-m-d H:i:s'),
+                ]
+            );
+        }
+
+        if($t=='-'){
+            $incidient = Incidient::find(
+                ['id = :ind:',       //запрос
+                    'bind'=>[
+                        'ind' => $id,//номер записи,
+                    ],
+                ]
+            );
+            $incidient->update(
+                [
+                    'status' => '1',
                 ]
             );
         }
@@ -69,11 +85,15 @@ class LoadPageController extends Controller
         var_dump($incidient[0]);
         var_dump($incidient[0]->status);*/
         //if($incidient)
-        $incidient->update(
-            [
-                'status' => '1',
-            ]
-        );
+        if ($incidient[0]->status=='0') {
+            //$step[0]->ending = date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
+            $incidient->update(
+                [
+                    'status' => '1',
+                ]
+            );
+        }
+
         //var_dump($step[0]);
         //var_dump($objectMyModel->getChangedFields());
 
