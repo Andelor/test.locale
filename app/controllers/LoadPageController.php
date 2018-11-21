@@ -235,6 +235,8 @@ class LoadPageController extends Controller
 
             $this->view->time_diff=(int)$difference;//разница во времени в микросекундах
 
+            $this->view->current_time=(int)$currentTime;
+
             $steps=StepInIncidient::find(
                 [
                     'idIncidient = :ind:',       //запрос
