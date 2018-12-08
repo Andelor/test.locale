@@ -14,6 +14,8 @@ use Phalcon\Http\Request;
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
 
+include APP_PATH.'\config\config.php';
+
 // Регистрируем автозагрузчик
 $loader = new Loader();
 
@@ -59,11 +61,11 @@ $di->set(
     function () {
         return new DbAdapter(
             [
-                'host'     => '127.0.0.1',
-                'username' => 'root',
-                'password' => '',
-                'dbname'   => 'tutorial',
-                'port' => '40023'
+                'host'     => HOST,
+                'username' => USERNAME,
+                'password' => PASSWORD,
+                'dbname'   => DBHAME,
+                'port' => PORT
             ]
         );
     }

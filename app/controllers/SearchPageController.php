@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Controller;
+include APP_PATH.'\config\config.php';
 
 class SearchPageController extends Controller
 {
@@ -13,6 +14,7 @@ class SearchPageController extends Controller
     public function findAction()
     {
 
+
         $url = new Url();
 
         $success = $url->save(  //организовать передачу данных из другого контроллера
@@ -24,7 +26,9 @@ class SearchPageController extends Controller
 
 
         if ($success) {  //поиск
-            $string = 'http://site.ru/w/api.php?action=query&list=search&srwhat=title&srsearch=';//запрос по совпадению в тексте
+
+            $string = WIKI_NAME;
+            $string = $string .'/api.php?action=query&list=search&srwhat=title&srsearch=';//запрос по совпадению в тексте
 
             $string = $string . urlencode($url->url);
             $string = $string . '&format=json';
@@ -33,7 +37,7 @@ class SearchPageController extends Controller
 
             curl_setopt($curl, CURLOPT_URL, $string);
             curl_setopt($curl, CURLOPT_HEADER, 0);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);//куки файл авторизация
 
             $ctri = curl_exec($curl);
             $ctri = json_decode($ctri);
@@ -56,10 +60,16 @@ class SearchPageController extends Controller
 
             endforeach;
             var_dump($arr);
+            curl_close($curl);
+            /*if ($is_ajax) {
+                // отменить вью
+                echo json_encode($arr);
+                exit;
+            } else*/
             $this->view->arr=$arr;
             return $arr;//Возврат
 
-            curl_close($curl);
+
         } else {
             echo "К сожалению, возникли следующие проблемы: ";
 

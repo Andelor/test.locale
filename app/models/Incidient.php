@@ -12,6 +12,7 @@ class Incidient extends Model
     public $dateEnd;
     public $title;
     public $time;
+    public $comment;
 
     //добавить связку BelongsTo и Hasmany
     public function initialize(){
@@ -64,7 +65,7 @@ class Incidient extends Model
     }//поиск завершенных заявок за последние сутки
 
 
-    public function saveIncidientStart($idInWiki, $userId, $title, $time){
+    public function saveIncidientStart($idInWiki, $userId, $title, $time,$comment){
         //$incid = new Incidient();
         $dateStart = date('Y-m-d H:i:s',$_SERVER['REQUEST_TIME']);
         //date('Y-m-d H:i:s',$_SERVER['REQUEST_TIME']);
@@ -75,6 +76,7 @@ class Incidient extends Model
         $this->dateStart=$dateStart;
         $this->title=$title;
         $this->time=$time;
+        $this->comment=$comment;
         $this->save();
 
     }//сохранение в базу начала инцедента работает

@@ -160,16 +160,16 @@ a:hover{
 .form-control:focus{
     box-shadow: none;
 }
-.block{  /*добавил*/
+/*.block{  /*добавил
     max-height: 150px;
     overflow-y: auto;
-}
+}*/
 .form-block{
     position: relative;
     padding-top: 40px;
 }
 .type-incident{
-    /*max-height: 271px; для скрола
+    /*max-height: 271px;/* для скрола
     overflow: auto;*/
     background: #fff;
     border-radius: 8px;

@@ -16,7 +16,7 @@ class LoadPageController extends Controller
     public function baseAction()
     {
         if(!$this->request->isPost()) return;
-       // $this->view->setRenderLevel(View::LEVEL_NO_RENDER); websockets - двунаправленное соединение
+        // $this->view->setRenderLevel(View::LEVEL_NO_RENDER); websockets - двунаправленное соединение
         $index = $this->request->getPost('index');
         $index--;
         $id = $this->request->getPost('page');
@@ -31,10 +31,8 @@ class LoadPageController extends Controller
                     ],
             ]
         );
-        //var_dump($step[0]);
 
         if ($step[0]->ending==NULL) {
-            //$step[0]->ending = date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
             $step->update(
                 [
                     'ending' => date('Y-m-d H:i:s'),
@@ -56,8 +54,6 @@ class LoadPageController extends Controller
                 ]
             );
         }
-        //var_dump($step[0]);
-        //var_dump($objectMyModel->getChangedFields());
 
         echo var_dump($_POST);
         echo var_dump($index);
@@ -70,7 +66,6 @@ class LoadPageController extends Controller
         // $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
         $id = $this->request->getPost('dni');
 
-        //$objectMyModel = new Incidient();
         $incidient = Incidient::find(
             ['id = :ind:',       //запрос
                 'bind'=>[
@@ -80,22 +75,13 @@ class LoadPageController extends Controller
         );
 
         var_dump($incidient[0]);
-        //var_dump($incidient[0]->status);
-        /*$incidient=$incidient->searchForChange($id);
-        var_dump($incidient[0]);
-        var_dump($incidient[0]->status);*/
-        //if($incidient)
         if ($incidient[0]->status=='0') {
-            //$step[0]->ending = date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
             $incidient->update(
                 [
                     'status' => '1',
                 ]
             );
         }
-
-        //var_dump($step[0]);
-        //var_dump($objectMyModel->getChangedFields());
 
         echo var_dump($_POST);
         echo var_dump($id);
@@ -138,7 +124,6 @@ class LoadPageController extends Controller
         );
 
         if (($incidient[0]->status==1)OR($incidient[0]->status==0)) {
-            //$step[0]->ending = date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
             $incidient->update(
                 [
                     'status' => 2,
@@ -146,8 +131,6 @@ class LoadPageController extends Controller
                 ]
             );
         }
-        //var_dump($step[0]);
-        //var_dump($objectMyModel->getChangedFields());
 
         echo var_dump($_POST);
         echo var_dump($id);
@@ -155,6 +138,8 @@ class LoadPageController extends Controller
 
     public  function pageAction()
     {
+        include APP_PATH.'\config\config.php';
+
         $pageid = $this->dispatcher->getParam("pageid");
 
 
@@ -168,7 +153,9 @@ class LoadPageController extends Controller
 
         $pageid=$incidient[0]->idInWiki;
 
-        $string = 'http://site.ru/w/api.php?action=query&prop=revisions&rvprop=content&format=json&pageids=';
+
+        $string = WIKI_NAME;
+        $string = $string.'/api.php?action=query&prop=revisions&rvprop=content&format=json&pageids=';
 
         $string = $string . $pageid;//должен быть get
 
@@ -215,10 +202,6 @@ class LoadPageController extends Controller
         }
         else $zerro=1;
 
-        /*$zerro=0;
-        foreach($result as $e){
-            if (($e->id!=0) or ($e->id!='')) $zerro=1;
-        }*/
         if ($zerro==1) {
             $this->view->ech=$incidient;
             //$currentTime = date('Y-m-d H:i:s',$_SERVER['REQUEST_TIME']);
@@ -259,8 +242,6 @@ class LoadPageController extends Controller
 
         }
         else { //сохраняем новый инцедент если нет такого незавершенного
-            //$objectMyModel->saveIncidientStart($pageid,1,$titles,$tim); //создание новой записи в инцедентах
-            //$this->view->ech=$result;
             $incidient[0]->title = $titles;
             $incidient[0]->userId = 1;
             $incidient[0]->time=$tim;
@@ -309,6 +290,8 @@ class LoadPageController extends Controller
     }
 
     function newAction(){
+        include APP_PATH.'\config\config.php';
+
         $id = $this->dispatcher->getParam("ndx");
 
         $objectMyModel = new Incidient();
@@ -331,8 +314,9 @@ class LoadPageController extends Controller
         }
         $num=$objectMyModel->id;
         //pageid
-        header("Location: http://test.locale/incidient/$num");
-        //$this->pageAction();
+
+        $s=DOMAIN_NAME;
+        header("Location: $s/incidient/$num");
     }
 
 }
