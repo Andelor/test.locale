@@ -300,7 +300,7 @@ class LoadPageController extends Controller
         $objectMyModel->userId=1;
         $objectMyModel->title='.';
         $objectMyModel->time=0;
-        $objectMyModel->comment='';
+        $objectMyModel->comment='Дороу';
 
 
 

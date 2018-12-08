@@ -12,6 +12,6 @@ define("PASSWORD",'');
 define("DBHAME",'tutorial');
 define("PORT",'40023');
 
-define("DOMAIN_NAME",'test.locale');
+define("DOMAIN_NAME","test.locale");
 define("WIKI_NAME",'http://site.ru/w');
 ?>
