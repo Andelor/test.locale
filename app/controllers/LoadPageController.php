@@ -290,6 +290,7 @@ class LoadPageController extends Controller
     }
 
     function newAction(){
+
         include APP_PATH.'\config\config.php';
 
         $id = $this->dispatcher->getParam("ndx");
@@ -299,10 +300,12 @@ class LoadPageController extends Controller
         $objectMyModel->userId=1;
         $objectMyModel->title='.';
         $objectMyModel->time=0;
+        $objectMyModel->comment='';
+
 
 
         if ($objectMyModel->create() === false) {
-            echo "Мы не можем сохранить робота прямо сейчас: \n";
+            echo "Мы не можем сохранить инцидент прямо сейчас: \n";
 
             $messages = $objectMyModel->getMessages();
 
@@ -310,13 +313,13 @@ class LoadPageController extends Controller
                 echo $message, "\n";
             }
         } else {
-            echo 'Отлично, новая запись робот был успешно создан!';
+            echo 'Отлично, новая запись инцидента была успешно создана!';
         }
         $num=$objectMyModel->id;
         //pageid
 
-        $s=DOMAIN_NAME;
-        header("Location: $s/incidient/$num");
+        $rout=DOMAIN_NAME;
+        header("Location: http://".$rout."/incidient/".$num);
     }
 
 }
