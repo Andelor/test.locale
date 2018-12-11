@@ -8,6 +8,7 @@ use Phalcon\Mvc\Url as UrlProvider;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Mvc\Router;
 use Phalcon\Http\Request;
+use Phalcon\Session\Adapter\Files as Session;
 
 // Определяем некоторые константы с абсолютными путями
 // для использования с локальными ресурасами
@@ -104,6 +105,19 @@ $router->add(
 $di->set(
     'router',
     $router
+);
+
+
+// Сессии запустятся один раз, при первом обращении к объекту
+$di->setShared(
+    'session',
+    function () {
+        $session = new Session();
+
+        $session->start();
+
+        return $session;
+    }
 );
 
 $application = new Application($di);

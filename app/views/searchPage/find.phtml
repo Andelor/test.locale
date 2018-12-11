@@ -446,20 +446,47 @@
     </div>
 </div>
 
+
+<?php
+$user = Users::find(
+    [
+        '',       //запрос
+        'order' => 'surname',    //сортировка
+        'offset'=> 0,       //смещение
+        //'limit' => 5,       //лимит записей//
+    ]
+);
+?>
 <div class="modal-window text-center animated bounceInDown" id="modal-win">
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label for="inputLogin" class="control-label">Введите логин</label>
-            <div class="col-lg-offset-2 col-lg-8" style="margin-top: 20px">
-                <input type="text" class="form-control login-form" id="inputLogin" placeholder="Введите логин">
-            </div>
+    <?php echo $this->tag->form("session/start"); ?>
+    <div class="form-group">
+        <label for="inputLogin" class="control-label">Смена пользователя</label>
+        <div>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="select_surname">
+                <option selected>
+                    <?php
+                    if ($this->session->has('auth'))
+                        echo "Здравствуйте ".$this->session->auth['surname'];
+                    else
+                        echo "Фамилия...";
+                    ?>
+                </option>
+                <?php
+                foreach ($user as $us){
+                    echo "<option value=".$us->id.">".$us->surname."</option>";
+                }
+                ?>
+            </select>
         </div>
-        <div class="form-group">
-            <div>
-                <button type="submit" class="btn btn-primary smena-button">Смена</button>
-                <button type="button" class="btn btn-primary smena-button smena-button-otmena" id="cancel">Отмена</button>
-            </div>
+    </div>
+
+    <div class="form-group">
+        <div>
+            <button type="submit" class="btn btn-primary smena-button">Смена</button>
+            <button type="button" class="btn btn-primary smena-button smena-button-otmena" id="cancel">Отмена</button>
         </div>
+    </div>
+
     </form>
 </div>
 
