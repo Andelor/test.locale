@@ -244,7 +244,7 @@ class LoadPageController extends Controller
         }
         else { //сохраняем новый инцедент если нет такого незавершенного
             $incidient[0]->title = $titles;
-            $incidient[0]->userId = 1;
+            $incidient[0]->userId = $this->session->auth['id'];
             $incidient[0]->time=$tim;
             $incidient[0]->dateStart=date('Y-m-d H:i:s',$_SERVER['REQUEST_TIME']);;
             $incidient[0]->status=0;
@@ -298,7 +298,7 @@ class LoadPageController extends Controller
 
         $objectMyModel = new Incidient();
         $objectMyModel->idInWiki=$id;
-        $objectMyModel->userId=1;
+        $objectMyModel->userId=$this->session->auth['id'];
         $objectMyModel->title='.';
         $objectMyModel->time=0;
         $objectMyModel->comment='Дороу';
