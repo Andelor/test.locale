@@ -8,6 +8,7 @@ class StepInIncidient extends Model
     public $step;
     public $ending;
     public $isOverdue;
+    public $idUserEnding;
 
     function saveStep($idIncidient, $step, $ending, $isOverdue){//проверить работоспособность
         $this->idIncidient=$idIncidient;

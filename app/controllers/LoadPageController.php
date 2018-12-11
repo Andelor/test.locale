@@ -13,7 +13,7 @@ class LoadPageController extends Controller
 
     }
 
-    public function baseAction()
+    public function baseAction()//окончание шага
     {
         if(!$this->request->isPost()) return;
         // $this->view->setRenderLevel(View::LEVEL_NO_RENDER); websockets - двунаправленное соединение
@@ -36,6 +36,7 @@ class LoadPageController extends Controller
             $step->update(
                 [
                     'ending' => date('Y-m-d H:i:s'),
+                    'idUserEnding' => $this->session->auth['id'],
                 ]
             );
         }
@@ -60,7 +61,7 @@ class LoadPageController extends Controller
         echo var_dump($id);
     }
 
-    public function typAction()
+    public function typAction()//долгосрочный инцидент
     {
         if(!$this->request->isPost()) return;
         // $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
