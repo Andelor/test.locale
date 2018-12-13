@@ -7,4 +7,5 @@ class Users extends Model
     public $surname;
     public $name;
     public $patronymic;
+    public $role;
 }

@@ -65,7 +65,7 @@ class Incidient extends Model
     }//поиск завершенных заявок за последние сутки
 
 
-    public function saveIncidientStart($idInWiki, $userId, $title, $time,$comment){
+    public function saveIncidientStart($idInWiki, $userId, $title, $time, $comment){
         //$incid = new Incidient();
         $dateStart = date('Y-m-d H:i:s',$_SERVER['REQUEST_TIME']);
         //date('Y-m-d H:i:s',$_SERVER['REQUEST_TIME']);
@@ -80,4 +80,14 @@ class Incidient extends Model
         $this->save();
 
     }//сохранение в базу начала инцедента работает
+
+    public function genIncidientInDate($date_start,$date_end){
+        $query = $this->modelsManager->createQuery(
+            "SELECT Incidient.idInWiki, Incidient.title, COUNT(*) AS quantity FROM Incidient WHERE dateStart
+            BETWEEN \"$date_start\" AND \"$date_end\" GROUP BY Incidient.idInWiki, Incidient.title");
+
+            //WHERE idInWiki=$strQuery AND  dateEnd is NULL");
+            //"SELECT * FROM Incidient WHERE idInWiki=$strQuery AND  dateEnd is NULL");
+        return $free = $query->execute();
+    }
 }
