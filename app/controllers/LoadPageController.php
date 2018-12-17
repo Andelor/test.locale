@@ -111,6 +111,7 @@ class LoadPageController extends Controller
             $step->update(
                 [
                     'ending' => date('Y-m-d H:i:s'),
+                    'idUserEnding' => $this->session->auth['id'],
                 ]
             );
         }
