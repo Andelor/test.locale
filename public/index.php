@@ -86,11 +86,12 @@ $router->add(
 );
 
 $router->add(
-    "/new/([0-9]+)",
+    "/new/([0-9]+)/:params",
     [
         "controller" => "loadPage",
         "action"     => "new",
-        "ndx" => 1
+        "ndx" => 1,
+        "params" => 2 //:params
     ]
 );
 /*$router->add(

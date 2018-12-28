@@ -369,7 +369,8 @@
                     <option selected>
                     <?php
                     if ($this->session->has('auth'))
-                        echo "Здравствуйте ".$this->session->auth['id'].$this->session->auth['surname'];
+                        echo "Здравствуйте ".$this->session->auth['surname'];
+                        //echo "Здравствуйте ".$this->session->auth['id'].$this->session->auth['surname'];
                     else
                         echo "Фамилия...";
                     ?>

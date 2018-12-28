@@ -229,6 +229,17 @@
         </div>
     </div>
 
+
+    <?php
+    $user = Users::find(
+        [
+            '',       //запрос
+            'order' => 'surname',    //сортировка
+            'offset'=> 0,       //смещение
+            //'limit' => 5,       //лимит записей//
+        ]
+    );
+    ?>
     <div class="modal-window text-center animated bounceInDown" id="modal-win">
         <?php echo $this->tag->form("session/start"); ?>
         <div class="form-group">
@@ -273,6 +284,7 @@
         </div>
     </div>
     <div class="overlay" id="overl2"></div>
+
 
     <a href="/index.phtml" class="back-a">
         <div class="back">

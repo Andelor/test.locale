@@ -4,7 +4,7 @@ use Phalcon\Mvc\Controller;
 //use StepInIncidient;
 use Phalcon\Mvc\View;
 
-class LoadPageController extends Controller
+class loadpageController extends Controller
 {
     public $str="";
 
@@ -296,13 +296,14 @@ class LoadPageController extends Controller
         include APP_PATH.'\config\config.php';
 
         $id = $this->dispatcher->getParam("ndx");
+        $comme = $this->dispatcher->getParam("params");
 
         $objectMyModel = new Incidient();
         $objectMyModel->idInWiki=$id;
         $objectMyModel->userId=$this->session->auth['id'];
         $objectMyModel->title='.';
         $objectMyModel->time=0;
-        $objectMyModel->comment='Дороу';
+        $objectMyModel->comment=$comme;
 
 
 

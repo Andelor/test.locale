@@ -4,7 +4,7 @@ use Phalcon\Mvc\Controller;
 //use StepInIncidient;
 use Phalcon\Mvc\View;
 
-class AdminPageController extends Controller
+class adminpageController extends Controller
 {
     public function indexAction()
     {
@@ -103,10 +103,32 @@ class AdminPageController extends Controller
                 );
                 $summ = count($incidient);
 
+                /*$time=$date_end-$date_start;
+                $date_start_2=$date_start-$time;
+                $date_end_2=$date_start;
+
+                //$this->view->time= ;
+                //$this->view->date_start_2=
+                //$this->view->date_end_2=
+
+                $incidient_last_week = Incidient::find(
+                    [
+                        'userId = :id: AND (dateStart between :date: AND :dats: OR dateEnd between :date: AND :dats:) ',       //запрос
+                        'bind' => [
+                            'id' => $us->id, //$result_1[0]->id,//$pageid,
+                            'date' => $date_start_2,
+                            'dats' => $date_end_2,
+                        ],
+                        //'conditions' => 'date between "2017-12-31" AND "2019-12-31"',
+                    ]
+                );
+                $summ_2 = count($incidient_last_week);*/
+
                 $index = (int)$us->id - 1;
                 $data[$index][1] = (string)$us->id;
                 $data[$index][2] = (string)$us->surname;
                 $data[$index][3] = (string)$summ;
+                //$data[$index][4] = (string)$summ_2;
                 echo var_dump($us->id, $us->surname, $summ);
             }
 
@@ -115,6 +137,7 @@ class AdminPageController extends Controller
             $title[0]='Номер';
             $title[1]='Фамилия оператора';
             $title[2]='Количество';
+            //$title[3]='Количество за предыдущий период';
 
             $this->view->nameTable="Количество открытых и закрытых инцидентов за выбранный период с ".$date_start." по ".$date_end;
             $this->view->title=$title;

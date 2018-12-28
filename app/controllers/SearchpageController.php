@@ -3,7 +3,7 @@
 use Phalcon\Mvc\Controller;
 include APP_PATH.'\config\config.php';
 
-class SearchPageController extends Controller
+class SearchpageController extends Controller
 {
     public function indexAction()
     {
