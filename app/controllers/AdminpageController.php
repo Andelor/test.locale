@@ -59,10 +59,31 @@ class adminpageController extends Controller
                 );
                 $summ=count($steps);
 
+                $d1 = strtotime("$date_end"); // переводит из строки в дату
+                $d2 = strtotime("$date_start"); // переводит из строки в дату
+                $time = $d1 - $d2;
+                $date_start_2 = $d2 - $time;
+                $date_start_2 = date("Y-m-d",$date_start_2);
+
+                $date_end_2=$date_start;
+
+                $incidient_last_week = StepInIncidient::find(
+                    [
+                        'idUserEnding = :id: AND ending between :date: AND :dats:',       //запрос
+                        'bind' => [
+                            'id' => $us->id, //$result_1[0]->id,//$pageid,
+                            'date' => $date_start_2,
+                            'dats' => $date_end_2,
+                        ],
+                    ]
+                );
+                $summ_2 = count($incidient_last_week);
+
                 $index = (int)$us->id - 1;
                 $data[$index][1]=(string)$us->id;
                 $data[$index][2]=(string)$us->surname;
                 $data[$index][3]=(string)$summ;
+                $data[$index][4]=(string)$summ_2;
                 echo var_dump($us->id, $us->surname, $summ);
             }
             //заголовки
@@ -70,6 +91,7 @@ class adminpageController extends Controller
             $title[0]='Номер';
             $title[1]='Фамилия оператора';
             $title[2]='Количество';
+            $title[3]='Предыдущий период';
 
             $this->view->nameTable="Количество завершенных шагов за период с ".$date_start." по ".$date_end;
             $this->view->title=$title;
@@ -103,13 +125,13 @@ class adminpageController extends Controller
                 );
                 $summ = count($incidient);
 
-                /*$time=$date_end-$date_start;
-                $date_start_2=$date_start-$time;
-                $date_end_2=$date_start;
+                $d1 = strtotime("$date_end"); // переводит из строки в дату
+                $d2 = strtotime("$date_start"); // переводит из строки в дату
+                $time = $d1 - $d2;
+                $date_start_2=$d2-$time;
+                $date_start_2=date("Y-m-d",$date_start_2);
 
-                //$this->view->time= ;
-                //$this->view->date_start_2=
-                //$this->view->date_end_2=
+                $date_end_2=$date_start;
 
                 $incidient_last_week = Incidient::find(
                     [
@@ -122,13 +144,13 @@ class adminpageController extends Controller
                         //'conditions' => 'date between "2017-12-31" AND "2019-12-31"',
                     ]
                 );
-                $summ_2 = count($incidient_last_week);*/
+                $summ_2 = count($incidient_last_week);
 
                 $index = (int)$us->id - 1;
                 $data[$index][1] = (string)$us->id;
                 $data[$index][2] = (string)$us->surname;
                 $data[$index][3] = (string)$summ;
-                //$data[$index][4] = (string)$summ_2;
+                $data[$index][4] = (string)$summ_2;
                 echo var_dump($us->id, $us->surname, $summ);
             }
 
@@ -137,7 +159,7 @@ class adminpageController extends Controller
             $title[0]='Номер';
             $title[1]='Фамилия оператора';
             $title[2]='Количество';
-            //$title[3]='Количество за предыдущий период';
+            $title[3]='Предыдущий период';
 
             $this->view->nameTable="Количество открытых и закрытых инцидентов за выбранный период с ".$date_start." по ".$date_end;
             $this->view->title=$title;
@@ -153,36 +175,58 @@ class adminpageController extends Controller
                         'date' => $date_start,
                         'dats' => $date_end,
                     ],
-                    //'group' => 'idInWiki, title',
-                    //'group' => 'idInWiki',
                 ]
             );
 
             $objectMyModel = new Incidient();
             $rows= $objectMyModel->genIncidientInDate($date_start,$date_end);
 
-            /*$i2 = Incidient::count(
-                [
-                    'group' => 'idInWiki, title',
-                    //'group' => 'title',
-                    //'order' => 'rowcount',
-                ]
-            );*/
             $index=0;
             $data=array();
             foreach ($rows as $c){
                 $data[$index][1]=$c->title;
-                $data[$index][2]=$c->idInWiki;
-                $data[$index][3]=$c->quantity;
+                //$data[$index][2]=$c->idInWiki;
+                $data[$index][2]=$c->quantity;
                 //$data[$index][4]=1;
                 $index++;
-            }
+            }//формирование данных
+
+
+            //__________________________________________________________________________________________________
+            //возможно не до конца корректно
+            $d1 = strtotime("$date_end"); // переводит из строки в дату
+            $d2 = strtotime("$date_start"); // переводит из строки в дату
+            $time = $d1 - $d2;
+            $date_start_2=$d2-$time;
+            $date_start_2=date("Y-m-d",$date_start_2);
+
+            $date_end_2=$date_start;
+
+            $incidient_last_week = Incidient::find(
+                [
+                    '(dateStart between :date: AND :dats:) OR (dateEnd between :date: AND :dats:)',       //запрос
+                    'bind' => [
+                        'date' => $date_start_2,
+                        'dats' => $date_end_2,
+                    ],
+                ]
+            );
+            $objectMyModel = new Incidient();
+            $rows= $objectMyModel->genIncidientInDate($date_start_2,$date_end_2);
+
+            $index=0;
+            foreach ($rows as $c){
+                $data[$index][3]=$c->quantity;
+                $index++;
+            }//формирование норм данных
+            //______________________________________________________________________________________________
+
 
             //заголовки
             $title=array();
             $title[0]='Инцидент';
-            $title[1]='idInWiki';
-            $title[2]='Сумма';
+            $title[1]='Сумма';
+            $title[2]='Предыдущий период';
 
             $this->view->nameTable="Количество по типам за выбранный период с ".$date_start." по ".$date_end;
             $this->view->title=$title;
