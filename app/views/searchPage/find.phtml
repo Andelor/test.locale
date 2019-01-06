@@ -93,8 +93,10 @@
                     <a href="/new/<?php echo $array[$i]['id'];?>">Начать</a>
                 </div>
 
-                <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-win-2" data-whatever="<?//php echo $array[$i]['id'];?>">Edit 1</button>-->
+                <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-win-2" data-whatever="<?php //echo $array[$i]['id'];?>">Edit 1</button>-->
 
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-new" data-incident="<?php echo $array[$i]['id'];?>">Начать инцидент</button>
+                <!--<a href="#" data-incident="<?php //echo $array[$i]['id'];?>">Начать инцидент</a>-->
                 <!--
                 <div class="col-lg-2 col-md-2 col-sm-2 text-right go-incident">
                     <a href="#m" data-toggle="modal" data-target="#modal-win-2" data-whatever="<?php //echo $array[$i]['id'];?>">Edit 1</a>
@@ -468,6 +470,28 @@ $user = Users::find(
     ]
 );
 ?>
+<!--//_________________________________-новое модальное-->
+
+<div class="modal-window text-center animated bounceInDown" id="modal-new">
+    <?php echo $this->tag->form("loadPage/new"); ?>
+    <!--<form action="" method="post">-->
+        <input type="text" id="incident_id" name="incident_id" value="">
+        <textarea name="coment"></textarea>
+        <div>
+            <?php
+            if ($this->session->has('auth'))
+                echo '<button type="submit" class="btn btn-primary smena-button">Отправить</button>';
+            else
+                echo '<a href="#" class="smena animated">Авторизируйтесь</a>';
+            ?>
+            <!--<button type="button" class="btn btn-primary smena-button smena-button-otmena" id="cancel">Отмена</button>-->
+        </div>
+    </form>
+</div>
+<div class="overlay1" id="overl1"></div>
+
+<!--//_________________________________-новое модальное-->
+
 <div class="modal-window text-center animated bounceInDown" id="modal-win">
     <?php echo $this->tag->form("session/start"); ?>
     <div class="form-group">
@@ -497,13 +521,14 @@ $user = Users::find(
             <button type="button" class="btn btn-primary smena-button smena-button-otmena" id="cancel">Отмена</button>
         </div>
     </div>
+    </div>
 </div>
 <div class="overlay" id="overl"></div>
 
-
-<div class="modal-window text-center animated bounceInDown" id="modal-win-2"><!-- доделать -->
-    <?php echo $this->tag->form("loadPageController/new"); ?>
-    <div class="form-group">
+<!--
+<div class="modal-window text-center animated bounceInDown" id="modal-win-2"> доделать -->
+    <?php //echo $this->tag->form("loadPageController/new"); ?>
+<!--    <div class="form-group">
         <label for="inputLogin" class="control-label">Введите комментарий:</label>
     </div>
 
@@ -521,8 +546,22 @@ $user = Users::find(
     </div>
     </form>
 </div>
-<div class="overlay1" id="overl2"></div>
+<div class="overlay1" id="overl2"></div>-->
 
+<!--//_________________________________-передачаданных-->
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('[data-incident]').on('click', function(e){
+            e.preventDefault();
+            $('#modal-new [name="incident_id"]').val($(this).data('incident'));
+        });
+    });
+
+</script>
 
 <a href="/index.html" class="back-a">
     <div class="back">

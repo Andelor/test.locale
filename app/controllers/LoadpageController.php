@@ -295,8 +295,10 @@ class loadpageController extends Controller
 
         include APP_PATH.'\config\config.php';
 
-        $id = $this->dispatcher->getParam("ndx");
-        $comme = $this->dispatcher->getParam("params");
+        /*$id = $this->dispatcher->getParam("incident_id");
+        $comme = $this->dispatcher->getParam("coment");*/
+        $id = $this->request->getPost("incident_id");
+        $comme = $this->request->getPost("coment");
 
         $objectMyModel = new Incidient();
         $objectMyModel->idInWiki=$id;

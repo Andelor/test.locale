@@ -79,13 +79,13 @@ $router = new \Phalcon\Mvc\Router();
 $router->add(
     "/incidient/([0-9]+)",
     [
-        "controller" => "loadPage",
+        "controller" => "loadpage",
         "action"     => "page",
         "pageid" => 1
     ]
 );
 
-$router->add(
+/*$router->add(
     "/new/([0-9]+)/:params",
     [
         "controller" => "loadPage",
@@ -93,7 +93,8 @@ $router->add(
         "ndx" => 1,
         "params" => 2 //:params
     ]
-);
+);*/
+
 /*$router->add(
     "/loadPage/page/([0-9]+)",
     [
