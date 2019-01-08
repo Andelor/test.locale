@@ -2,7 +2,7 @@
 
 use Phalcon\Mvc\Controller;
 
-class SessionController extends Controller
+class sessionController extends Controller
 {
 
     private function _registerSession($user)

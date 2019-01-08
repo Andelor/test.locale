@@ -2,7 +2,7 @@
 
 use Phalcon\Mvc\Controller;
 
-class SignupController extends Controller
+class signupController extends Controller
 {
     public function indexAction()
     {

@@ -142,6 +142,10 @@
                                 </div>
                                 <div class="indication text-center">Выполнено <?php echo sprintf("%01.2f",$percent),"%"?></div>
                             </div>
+                            <div class="row date-time-go">
+                                <div class="col-lg-6 col-md-6 col-sm-6 text-left">Комментарий:</div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo mb_substr($inc->comment,0, 50);?></div>
+                            </div>
                         </div>
                     </a>
                         <?php
@@ -219,6 +223,10 @@
                             <div class="progress-bar progress-bar-green" role="progressbar" style="width: <?php echo $percent,"%"?>" aria-valuenow="<?php echo $percent,"%"?>" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="indication text-center">Выполнено <?php echo sprintf("%01.2f",$percent),"%"?></div>
+                    </div>
+                    <div class="row date-time-go">
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-left">Комментарий:</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo mb_substr($inc->comment,0, 50);?></div>
                     </div>
                 </div>
                 </a>
@@ -324,6 +332,10 @@
                             <div class="progress-bar progress-bar-green" role="progressbar" style="width: <?php echo $percent,"%"?>" aria-valuenow="<?php echo $percent,"%"?>" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="indication text-center">Выполнено <?php echo sprintf("%01.2f",$percent),"%"?></div>
+                    </div>
+                    <div class="row date-time-go">
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-left">Комментарий:</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-left"><?php echo mb_substr($inc->comment,0, 50);?></div>
                     </div>
                 </div>
                 </a>
