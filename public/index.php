@@ -66,7 +66,11 @@ $di->set(
                 'username' => USERNAME,
                 'password' => PASSWORD,
                 'dbname'   => DBHAME,
-                'port' => PORT
+                'port' => PORT,
+                'charset' => 'utf8',
+                'options'  => [
+                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'",
+                ]
             ]
         );
     }

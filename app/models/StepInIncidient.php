@@ -19,7 +19,7 @@ class StepInIncidient extends Model
     function searchNeedString($idIncidient, $step)
     {
         $query = $this->modelsManager->createQuery(
-            "SELECT * FROM step_In_Incidient WHERE idIncidient=:idIncidient: AND  step=:step:");//AND status=0;
+            "SELECT * FROM stepInIncidient WHERE idIncidient=:idIncidient: AND  step=:step:");//AND status=0;
         return $free = $query->execute(
             [
                 'idIncidient' => $idIncidient,
@@ -48,7 +48,7 @@ class StepInIncidient extends Model
 */
     public function initialize()
     {
-        $this->setSource("step_In_Incidient");
+        $this->setSource("stepInIncidient");
     }
 
 /* Returns table name mapped in the model.
@@ -57,7 +57,7 @@ class StepInIncidient extends Model
 */
     public function getSource()
     {
-        return 'step_In_Incidient';
+        return 'stepInIncidient';
     }
 
 }
