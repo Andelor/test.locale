@@ -473,9 +473,10 @@ $user = Users::find(
 <!--//_________________________________-новое модальное-->
 
 <div class="modal-window text-center animated bounceInDown" id="modal-new">
+    <label class="control-label">Введите комментарий</label>
     <?php echo $this->tag->form("loadPage/new"); ?>
     <!--<form action="" method="post">-->
-        <input type="text" id="incident_id" name="incident_id" value="">
+        <input type="hidden" id="incident_id" name="incident_id" value="">
         <textarea name="coment"></textarea>
         <div>
             <?php

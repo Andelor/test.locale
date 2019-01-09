@@ -191,6 +191,9 @@ class LoadpageController extends Controller
             }
         }
 
+        //var_dump($tim);
+        //var_dump($m);
+        //var_dump($matches);
         $this->view->tim=$tim;
         $this->view->m=$m;
         $this->view->matches=$matches;
@@ -257,11 +260,15 @@ class LoadpageController extends Controller
             //$this->view->ech_1=$result_1;
 
             $lengthM = count($m);
+            var_dump($lengthM);
+            var_dump(class_exists('StepInIncidient'));
             for($i=0;$i < $lengthM-1;$i++){//если новый инцедент, то создаем необходимое кол-во шагов для этого действия
                 //foreach($result_1[0] as $f){//хоть и резуьтат единственный, но запрос возвращает таблицу
                     $stepin= new StepInIncidient();
                     $stepin->idIncidient=$incidient[0]->id;//$result_1[0]->id;
                     $stepin->step=$i;
+                    var_dump($stepin);
+                    var_dump($i);
                     $stepin->save();
                 //}
             }
