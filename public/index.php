@@ -15,7 +15,7 @@ use Phalcon\Session\Adapter\Files as Session;
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
 
-include APP_PATH.'\config\config.php';
+include APP_PATH.'/config/config.php';
 
 // Регистрируем автозагрузчик
 $loader = new Loader();

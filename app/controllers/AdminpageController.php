@@ -4,7 +4,7 @@ use Phalcon\Mvc\Controller;
 //use StepInIncidient;
 use Phalcon\Mvc\View;
 
-class adminpageController extends Controller
+class AdminpageController extends Controller
 {
     public function indexAction()
     {

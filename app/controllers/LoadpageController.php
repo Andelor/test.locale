@@ -4,7 +4,7 @@ use Phalcon\Mvc\Controller;
 //use StepInIncidient;
 use Phalcon\Mvc\View;
 
-class loadpageController extends Controller
+class LoadpageController extends Controller
 {
     public $str="";
 
